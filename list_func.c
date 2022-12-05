@@ -38,45 +38,45 @@ void add_element_at_index(t_list *root, t_list element, int index)
 }
 
 /**
- * @brief add a new element to the list before this element
+ * @brief add a new element to the list before current element
  *
  * @param root
  * @param new
- * @param this
+ * @param current
  */
-void add_element_before_this(t_list *root, t_list new, t_list this)
+void add_element_before(t_list *root, t_list new, t_list current)
 {
-    new->next = this;
-    if (this->previous)
+    new->next = current;
+    if (current->previous)
     {
-        new->previous = this->previous;
-        this->previous->next = new;
-        this->previous = new;
+        new->previous = current->previous;
+        current->previous->next = new;
+        current->previous = new;
     }
     else
     {
-        this->previous = new;
+        current->previous = new;
         *root = new;
     }
 }
 
 /**
- * @brief add a new element to the list after this element
+ * @brief add a new element to the list after current element
  *
  * @param new
- * @param this
+ * @param current
  */
-void add_element_after_this(t_list new, t_list this)
+void add_element_after(t_list new, t_list current)
 {
-    new->previous = this;
-    if (this->next)
+    new->previous = current;
+    if (current->next)
     {
-        new->next = this->next;
-        this->next->previous = new;
-        this->next = new;
+        new->next = current->next;
+        current->next->previous = new;
+        current->next = new;
     }
     else
-        this->next = new;
+        current->next = new;
 }
 
 /**
@@ -118,16 +118,25 @@ void swap_element(t_list *root, t_list left, t_list right)
         *root = right;
     else if (*root == right)
         *root = left;
+
     tmp.next = left->next;
     tmp.previous = left->previous;
     left->next = right->next;
-    right->next->previous = left;
-    left->previous = right->previous;
-    left->previous->next = left;
-    right->next = tmp.next;
-    right->next->previous = right;
+    if (right->next)
+        right->next->previous = left;
+    if (right->previous == left)
+        left->previous = right;
+    else
+        left->previous = right->previous;
+    if (left->previous)
+        left->previous->next = left;
+    if (right->next != left)
+        right->next = tmp.next;
+    if (right->next)
+        right->next->previous = right;
     right->previous = tmp.previous;
-    right->previous->next = right;
+    if (right->previous)
+        right->previous->next = right;
 }
 
 /**

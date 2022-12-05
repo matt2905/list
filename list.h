@@ -33,8 +33,8 @@ void clean_list(t_list *root);
 void print_list(t_list root, t_print print);
 
 void add_element_at_index(t_list *root, t_list element, int index);
-void add_element_before_this(t_list *root, t_list new, t_list this);
-void add_element_after_this(t_list new, t_list this);
+void add_element_before(t_list *root, t_list new, t_list current);
+void add_element_after(t_list new, t_list current);
 t_list search_element(t_list root, void *find_me, t_is_equal is_equal);
 void swap_element(t_list *root, t_list left, t_list right);
 void revert_list(t_list *root);

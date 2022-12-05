@@ -65,11 +65,11 @@ int main(void)
 
     find_me = 3;
     result = search_element(root, &find_me, is_my_int_equal);
-    add_element_before_this(&root, new_int_element(-3), result);
+    add_element_before(&root, new_int_element(-3), result);
 
     find_me = 5;
     result = search_element(root, &find_me, is_my_int_equal);
-    add_element_after_this(new_int_element(51), result);
+    add_element_after(new_int_element(51), result);
 
     swap(&root);
     revert_list(&root);
